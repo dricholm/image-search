@@ -11,6 +11,26 @@ export class PhotoService {
     return 'https://api.unsplash.com';
   }
 
+  private mapUnsplashPhoto(photo: any): Photo {
+    return {
+      id: photo.id,
+      description: photo.description,
+      url: photo.urls.raw,
+      user: {
+        name: photo.user.name,
+        url: photo.user.links.self,
+      },
+    };
+  }
+
+  get(id: string): Observable<Photo> {
+    return this.httpService
+      .get(`${this.baseUrl}/photos/${id}`, {
+        headers: { Authorization: process.env.UNSPLASH_API_KEY },
+      })
+      .pipe(map((response) => this.mapUnsplashPhoto(response.data)));
+  }
+
   search(keyword: string): Observable<Photos> {
     return this.httpService
       .get(`${this.baseUrl}/search/photos?query=${keyword}`, {
@@ -18,17 +38,8 @@ export class PhotoService {
       })
       .pipe(
         map((response) => ({
-          photos: response.data.photos.map(
-            (photo: any) =>
-              ({
-                id: photo.id,
-                description: photo.description,
-                url: photo.urls.raw,
-                user: {
-                  name: photo.user.name,
-                  url: photo.user.links.self,
-                },
-              } as Photo)
+          photos: response.data.photos.map((photo: any) =>
+            this.mapUnsplashPhoto(photo)
           ),
         }))
       );
