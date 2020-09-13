@@ -1,25 +1,11 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { render, screen } from '@testing-library/angular';
 import { NotFoundComponent } from './not-found.component';
 
 describe('NotFoundComponent', () => {
-  let component: NotFoundComponent;
-  let fixture: ComponentFixture<NotFoundComponent>;
+  it('should display not found and link to home page', async () => {
+    await render(NotFoundComponent, { routes: [] });
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [NotFoundComponent],
-      }).compileComponents();
-    })
-  );
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(NotFoundComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(screen.getAllByText(/not found/i));
+    expect(screen.getByRole(/link/i, { name: /home page/i }));
   });
 });

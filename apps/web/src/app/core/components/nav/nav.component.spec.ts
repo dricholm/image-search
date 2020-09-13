@@ -1,25 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { render, screen } from '@testing-library/angular';
 import { NavComponent } from './nav.component';
 
 describe('NavComponent', () => {
-  let component: NavComponent;
-  let fixture: ComponentFixture<NavComponent>;
+  it('should display search and favorites', async () => {
+    await render(NavComponent, { routes: [] });
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ NavComponent ]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(NavComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(screen.getByText(/search/i));
+    expect(screen.getByText(/favorites/i));
   });
 });

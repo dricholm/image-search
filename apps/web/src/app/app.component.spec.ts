@@ -1,20 +1,12 @@
-import { HttpClientModule } from '@angular/common/http';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { render, screen } from '@testing-library/angular';
 import { AppComponent } from './app.component';
+import { NavComponent } from './core/components/nav/nav.component';
 
 describe('AppComponent', () => {
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [AppComponent],
-        imports: [HttpClientModule],
-      }).compileComponents();
-    })
-  );
+  it('should display navbar and main content', async () => {
+    await render(AppComponent, { declarations: [NavComponent], routes: [] });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    expect(screen.getByRole(/nav/i));
+    expect(screen.getByRole(/main/i));
   });
 });

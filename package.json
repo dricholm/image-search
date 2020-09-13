@@ -65,6 +65,7 @@
     "@nrwl/nest": "10.2.0",
     "@nrwl/node": "10.2.0",
     "@nrwl/workspace": "10.2.0",
+    "@testing-library/angular": "^10.0.2",
     "@types/jest": "26.0.8",
     "@types/node": "~8.9.4",
     "codelyzer": "~5.0.1",
