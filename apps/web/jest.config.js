@@ -2,6 +2,7 @@ module.exports = {
   name: 'web',
   preset: '../../jest.config.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
+  setupFiles: ['jest-localstorage-mock'],
   globals: {
     'ts-jest': {
       tsConfig: '<rootDir>/tsconfig.spec.json',

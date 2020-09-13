@@ -3,7 +3,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { DataPersistence, NxModule } from '@nrwl/angular';
 import { hot } from '@nrwl/angular/testing';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { PhotoService } from '../../services/photo.service';
 import * as PhotosActions from './photos.actions';
 import { PhotosEffects } from './photos.effects';
