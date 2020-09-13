@@ -1,0 +1,38 @@
+nav {
+  @apply bg-white;
+
+  @screen md {
+    @apply shadow-sm;
+  }
+
+  ul {
+    @apply flex;
+
+    li {
+      @apply flex-1 py-3 px-5;
+
+      @screen md {
+        @apply flex-initial;
+      }
+
+      a {
+        @apply flex items-center justify-center text-gray-900 no-underline;
+
+        &.active {
+          @apply text-blue-600;
+        }
+
+        &:hover {
+          @apply text-blue-600;
+        }
+
+        svg {
+          @apply mr-2;
+
+          height: 20px;
+          width: 20px;
+        }
+      }
+    }
+  }
+}

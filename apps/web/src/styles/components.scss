@@ -1,0 +1,27 @@
+.form-input {
+  @apply rounded bg-white text-gray-700 py-2 px-3;
+
+  &:not(:placeholder-shown):invalid {
+    @apply border border-red-300;
+  }
+}
+
+.btn {
+  @apply rounded transition-colors duration-200 py-2 px-3;
+
+  &:disabled {
+    @apply bg-gray-400;
+  }
+
+  &.btn-primary {
+    @apply bg-blue-600 text-white;
+
+    &:hover {
+      @apply bg-blue-700;
+    }
+  }
+}
+
+.center {
+  @apply flex flex-col justify-center items-center;
+}
