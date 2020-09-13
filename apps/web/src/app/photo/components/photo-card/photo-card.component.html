@@ -1,0 +1,48 @@
+<figure>
+  <img class="w-full" [src]="photo.url" alt="Description" />
+
+  <section>
+    <div class="flex items-center justify-between">
+      <div class="flex">
+        <a class="mr-3" [href]="photo.user.url">{{ photo.user.name }}</a>
+      </div>
+      <div class="flex">
+        <button class="btn text-2xl">
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-label="Download"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+            />
+          </svg>
+        </button>
+        <button class="btn text-2xl">
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-label="Add to favorites"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <figcaption>{{ photo.description }}</figcaption>
+  </section>
+</figure>

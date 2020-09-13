@@ -1,0 +1,8 @@
+<section
+  class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-y-5 md:gap-x-5 my-3"
+>
+  <image-search-photo-card
+    *ngFor="let photo of photos"
+    [photo]="photo"
+  ></image-search-photo-card>
+</section>
