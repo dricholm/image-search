@@ -78,7 +78,7 @@ describe('PhotoService', () => {
     url: examplePhoto.urls.raw,
     user: {
       name: examplePhoto.user.name,
-      url: examplePhoto.user.links.self,
+      url: examplePhoto.user.links.html,
     },
   };
 
@@ -109,7 +109,9 @@ describe('PhotoService', () => {
         expect(http.get).toHaveBeenCalledWith(
           `https://api.unsplash.com/photos/${id}`,
           {
-            headers: { Authorization: process.env.UNSPLASH_API_KEY },
+            headers: {
+              Authorization: `Client-ID ${process.env.UNSPLASH_API_KEY}`,
+            },
           }
         );
         expect(result).toStrictEqual(photo);
@@ -133,11 +135,13 @@ describe('PhotoService', () => {
       );
 
       service.search(keyword).subscribe((result) => {
-        expect(
-          http.get
-        ).toHaveBeenCalledWith(
+        expect(http.get).toHaveBeenCalledWith(
           `https://api.unsplash.com/search/photos?query=${keyword}`,
-          { headers: { Authorization: process.env.UNSPLASH_API_KEY } }
+          {
+            headers: {
+              Authorization: `Client-ID ${process.env.UNSPLASH_API_KEY}`,
+            },
+          }
         );
         expect(result.photos.length).toBe(1);
         expect(result.photos[0]).toStrictEqual(photo);

@@ -18,7 +18,7 @@ export class PhotoService {
       url: photo.urls.raw,
       user: {
         name: photo.user.name,
-        url: photo.user.links.self,
+        url: photo.user.links.html,
       },
     };
   }
@@ -26,7 +26,9 @@ export class PhotoService {
   get(id: string): Observable<Photo> {
     return this.httpService
       .get(`${this.baseUrl}/photos/${id}`, {
-        headers: { Authorization: process.env.UNSPLASH_API_KEY },
+        headers: {
+          Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
+        },
       })
       .pipe(map((response) => this.mapUnsplashPhoto(response.data)));
   }
@@ -34,11 +36,13 @@ export class PhotoService {
   search(keyword: string): Observable<Photos> {
     return this.httpService
       .get(`${this.baseUrl}/search/photos?query=${keyword}`, {
-        headers: { Authorization: process.env.UNSPLASH_API_KEY },
+        headers: {
+          Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
+        },
       })
       .pipe(
         map((response) => ({
-          photos: response.data.photos.map((photo: any) =>
+          photos: response.data.results.map((photo: any) =>
             this.mapUnsplashPhoto(photo)
           ),
         }))

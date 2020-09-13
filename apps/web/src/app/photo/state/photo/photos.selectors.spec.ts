@@ -3,24 +3,14 @@ import { initialState, photosAdapter } from './photos.reducer';
 import * as PhotosSelectors from './photos.selectors';
 
 describe('Photos Selectors', () => {
-  const ERROR_MSG = 'No Error Available';
-  const getPhotosId = (it) => it['id'];
-
   let state;
 
   beforeEach(() => {
     state = {
       photos: photosAdapter.setAll(
-        [
-          createPhoto('PRODUCT-AAA'),
-          createPhoto('PRODUCT-BBB'),
-          createPhoto('PRODUCT-CCC'),
-        ],
+        [createPhoto('AAA'), createPhoto('BBB'), createPhoto('CCC')],
         {
           ...initialState,
-          selectedId: 'PRODUCT-BBB',
-          error: ERROR_MSG,
-          loaded: true,
         }
       ),
     };
@@ -29,22 +19,29 @@ describe('Photos Selectors', () => {
   describe('Photos Selectors', () => {
     it('getAllPhotos() should return the list of Photos', () => {
       const results = PhotosSelectors.getAllPhotos(state);
-      const selId = getPhotosId(results[1]);
 
       expect(results.length).toBe(3);
-      expect(selId).toBe('PRODUCT-BBB');
+      expect(results[0].id).toBe('AAA');
+      expect(results[1].id).toBe('BBB');
+      expect(results[2].id).toBe('CCC');
     });
 
-    it("getPhotosLoaded() should return the current 'loaded' status", () => {
-      const result = PhotosSelectors.getPhotosLoaded(state);
+    it("getPhotosInitialized() should return the current 'initialized' status", () => {
+      const result = PhotosSelectors.getPhotosInitialized(state);
 
-      expect(result).toBe(true);
+      expect(result).toBe(false);
+    });
+
+    it("getPhotosLoading() should return the current 'loading' status", () => {
+      const result = PhotosSelectors.getPhotosLoading(state);
+
+      expect(result).toBe(false);
     });
 
     it("getPhotosError() should return the current 'error' state", () => {
       const result = PhotosSelectors.getPhotosError(state);
 
-      expect(result).toBe(ERROR_MSG);
+      expect(result).toBe(null);
     });
   });
 });

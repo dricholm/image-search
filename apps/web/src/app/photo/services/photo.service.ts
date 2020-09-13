@@ -13,7 +13,7 @@ export class PhotoService {
 
   search(keyword: string): Observable<Photo[]> {
     return this.http
-      .get<Photos>(`${environment.baseUrl}/search?keyword=${keyword}`)
+      .get<Photos>(`${environment.baseUrl}/photos/search?keyword=${keyword}`)
       .pipe(map((response) => response.photos));
   }
 }

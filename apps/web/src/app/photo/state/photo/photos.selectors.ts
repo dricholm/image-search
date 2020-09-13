@@ -1,9 +1,9 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
+  photosAdapter,
+  PhotosPartialState,
   PHOTOS_FEATURE_KEY,
   State,
-  PhotosPartialState,
-  photosAdapter,
 } from './photos.reducer';
 
 export const getPhotosState = createFeatureSelector<PhotosPartialState, State>(
@@ -12,9 +12,14 @@ export const getPhotosState = createFeatureSelector<PhotosPartialState, State>(
 
 const { selectAll, selectEntities } = photosAdapter.getSelectors();
 
-export const getPhotosLoaded = createSelector(
+export const getPhotosInitialized = createSelector(
   getPhotosState,
-  (state: State) => state.loaded
+  (state: State) => state.initialized
+);
+
+export const getPhotosLoading = createSelector(
+  getPhotosState,
+  (state: State) => state.loading
 );
 
 export const getPhotosError = createSelector(

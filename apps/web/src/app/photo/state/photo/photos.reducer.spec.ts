@@ -23,7 +23,8 @@ describe('Photos Reducer', () => {
 
       const result: State = reducer(initialState, action);
 
-      expect(result.loaded).toBe(true);
+      expect(result.initialized).toBe(true);
+      expect(result.loading).toBe(false);
       expect(result.ids.length).toBe(2);
     });
   });

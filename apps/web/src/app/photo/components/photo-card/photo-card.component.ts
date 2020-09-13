@@ -8,4 +8,14 @@ import { Photo } from '@image-search/api-interfaces';
 })
 export class PhotoCardComponent {
   @Input() photo: Photo;
+
+  constructor() {}
+
+  get thumbnail(): string {
+    return `${this.photo.url}?q=75&fm=jpg&w=400&fit=max`;
+  }
+
+  get downloadUrl(): string {
+    return `https://unsplash.com/photos/${this.photo.id}/download`;
+  }
 }

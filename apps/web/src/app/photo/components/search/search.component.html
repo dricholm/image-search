@@ -1,11 +1,18 @@
-<form class="flex justify-center my-10">
+<form
+  class="flex justify-center my-10"
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  ngNativeValidate
+>
   <div class="flex shadow-lg">
     <input
       class="form-input flex-1 text-xl rounded-r-none p-3"
       type="text"
       placeholder="Enter a keyword"
       aria-label="Search keyword"
+      formControlName="keyword"
       required
+      minlength="2"
     />
     <button class="btn text-xl btn-primary rounded-l-none p-3" type="submit">
       Search
@@ -13,7 +20,21 @@
   </div>
 </form>
 
-<section>
-  <h1>Content</h1>
-  <image-search-photo-list></image-search-photo-list>
+<section *ngIf="initialized$ | async" class="center">
+  <div *ngIf="error$ | async as error" class="alert alert-danger m-5">
+    <strong>
+      Error
+    </strong>
+    {{ error.message }}
+  </div>
+  <div
+    *ngIf="loading$ | async; else loaded"
+    class="loader text-3xl"
+    aria-label="Loading"
+  ></div>
+  <ng-template #loaded>
+    <image-search-photo-list
+      [photos]="photos$ | async"
+    ></image-search-photo-list>
+  </ng-template>
 </section>

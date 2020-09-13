@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/angular';
 import { Photo } from '@image-search/api-interfaces';
+import { render, screen } from '@testing-library/angular';
 import { PhotoCardComponent } from './photo-card.component';
 
 describe('PhotoCardComponent', () => {
@@ -18,7 +18,10 @@ describe('PhotoCardComponent', () => {
       componentProperties: { photo },
     });
 
-    expect(screen.getByRole('img')).toHaveAttribute('src', photo.url);
+    expect(screen.getByAltText(photo.description)).toHaveAttribute(
+      'src',
+      `${photo.url}?q=75&fm=jpg&w=400&fit=max`
+    );
     expect(screen.getByText(photo.description));
     expect(screen.getByText(photo.user.name));
     expect(screen.getByLabelText(/download/i));

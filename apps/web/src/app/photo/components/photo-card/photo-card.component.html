@@ -1,13 +1,18 @@
 <figure>
-  <img class="w-full" [src]="photo.url" alt="Description" />
+  <a [href]="photo.url" target="_blank">
+    <img class="thumbnail" [src]="thumbnail" [alt]="photo.description" />
+  </a>
+  <img class="img-background" [src]="thumbnail" />
 
   <section>
     <div class="flex items-center justify-between">
       <div class="flex">
-        <a class="mr-3" [href]="photo.user.url">{{ photo.user.name }}</a>
+        <a class="mr-3" [href]="photo.user.url" target="_blank">
+          {{ photo.user.name }}
+        </a>
       </div>
       <div class="flex">
-        <button class="btn text-2xl">
+        <a class="btn text-2xl text-gray-900" [href]="downloadUrl">
           <svg
             class="icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -23,8 +28,8 @@
               d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
             />
           </svg>
-        </button>
-        <button class="btn text-2xl">
+        </a>
+        <button class="btn text-2xl text-gray-900">
           <svg
             class="icon"
             xmlns="http://www.w3.org/2000/svg"

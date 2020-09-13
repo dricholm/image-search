@@ -20,6 +20,6 @@ describe('PhotoListComponent', () => {
       componentProperties: { photos: [photo] },
     });
 
-    expect(screen.getByRole('img'));
+    expect(screen.getByText(photo.description));
   });
 });

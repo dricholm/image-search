@@ -59,20 +59,20 @@ describe('PhotosFacade', () => {
     it('search should return values from service', async (done) => {
       jest.spyOn(service, 'search').mockReturnValueOnce(of([]));
       try {
-        let list = await readFirst(facade.allPhotos$);
-        let isLoaded = await readFirst(facade.loaded$);
+        let list = await readFirst(facade.photos$);
+        let isInitialized = await readFirst(facade.initialized$);
 
         expect(list.length).toBe(0);
-        expect(isLoaded).toBe(false);
+        expect(isInitialized).toBe(false);
 
         facade.search(keyword);
 
-        list = await readFirst(facade.allPhotos$);
-        isLoaded = await readFirst(facade.loaded$);
+        list = await readFirst(facade.photos$);
+        isInitialized = await readFirst(facade.initialized$);
 
         expect(service.search).toHaveBeenCalledWith(keyword);
         expect(list.length).toBe(0);
-        expect(isLoaded).toBe(true);
+        expect(isInitialized).toBe(true);
 
         done();
       } catch (err) {

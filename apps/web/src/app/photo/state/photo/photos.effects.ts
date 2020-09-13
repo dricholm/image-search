@@ -19,7 +19,9 @@ export class PhotosEffects {
             .pipe(map((photos) => PhotosActions.loadPhotosSuccess({ photos }))),
         onError: (action, error) => {
           console.error('Error', error);
-          return PhotosActions.loadPhotosFailure({ error });
+          return PhotosActions.loadPhotosFailure({
+            error: error.error || { error: -1, message: 'Unexpected error' },
+          });
         },
       })
     )
