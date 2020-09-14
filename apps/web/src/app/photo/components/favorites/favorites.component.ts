@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FavoritesFacade } from '../../state/favorites/favorites.facade';
 
 @Component({
   selector: 'image-search-favorites',
   templateUrl: './favorites.component.html',
-  styleUrls: ['./favorites.component.scss']
+  styleUrls: ['./favorites.component.scss'],
 })
-export class FavoritesComponent implements OnInit {
+export class FavoritesComponent {
+  constructor(private favoritesFacade: FavoritesFacade) {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  favorites$ = this.favoritesFacade.favorites$;
 }

@@ -8,6 +8,7 @@ import { Photo } from '@image-search/api-interfaces';
 })
 export class PhotoCardComponent {
   @Input() photo: Photo;
+  modalOpen = false;
 
   constructor() {}
 
@@ -17,5 +18,13 @@ export class PhotoCardComponent {
 
   get downloadUrl(): string {
     return `https://unsplash.com/photos/${this.photo.id}/download`;
+  }
+
+  openModal() {
+    this.modalOpen = true;
+  }
+
+  closeModal() {
+    this.modalOpen = false;
   }
 }

@@ -28,7 +28,7 @@ const favoritesReducer = createReducer(
       (favorite) =>
         favorite.id == favoriteId
           ? { ...favorite, photoIds: [...favorite.photoIds, photoId] }
-          : favorite,
+          : { ...favorite },
       { ...state }
     )
   ),
@@ -40,7 +40,7 @@ const favoritesReducer = createReducer(
               ...favorite,
               photoIds: favorite.photoIds.filter((id) => id != photoId),
             }
-          : favorite,
+          : { ...favorite },
       { ...state }
     )
   ),

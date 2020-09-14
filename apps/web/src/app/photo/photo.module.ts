@@ -14,6 +14,7 @@ import * as fromFavorites from './state/favorites/favorites.reducer';
 import { PhotosEffects } from './state/photo/photos.effects';
 import { PhotosFacade } from './state/photo/photos.facade';
 import * as fromPhotos from './state/photo/photos.reducer';
+import { FavoriteModalComponent } from './components/favorite-modal/favorite-modal.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import * as fromPhotos from './state/photo/photos.reducer';
     PhotoCardComponent,
     PhotoListComponent,
     FavoritesComponent,
+    FavoriteModalComponent,
   ],
   imports: [
     CommonModule,

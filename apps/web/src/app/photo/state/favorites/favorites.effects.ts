@@ -3,7 +3,7 @@ import {
   Actions,
   createEffect,
   ofType,
-  ROOT_EFFECTS_INIT,
+  OnInitEffects
 } from '@ngrx/effects';
 import { fetch, optimisticUpdate } from '@nrwl/angular';
 import { map } from 'rxjs/operators';
@@ -11,12 +11,16 @@ import { PhotoService } from '../../services/photo.service';
 import * as FavoritesActions from './favorites.actions';
 
 @Injectable()
-export class FavoritesEffects {
+export class FavoritesEffects implements OnInitEffects {
   constructor(private actions$: Actions, private service: PhotoService) {}
 
-  init$ = createEffect(() =>
+  ngrxOnInitEffects() {
+    return FavoritesActions.load();
+  }
+
+  load$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ROOT_EFFECTS_INIT),
+      ofType(FavoritesActions.load),
       fetch({
         run: (_) =>
           FavoritesActions.setFavorites({

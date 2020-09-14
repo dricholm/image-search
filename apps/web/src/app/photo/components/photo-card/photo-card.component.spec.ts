@@ -1,5 +1,7 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { Photo } from '@image-search/api-interfaces';
 import { render, screen } from '@testing-library/angular';
+import { FavoriteModalComponent } from '../favorite-modal/favorite-modal.component';
 import { PhotoCardComponent } from './photo-card.component';
 
 describe('PhotoCardComponent', () => {
@@ -15,6 +17,8 @@ describe('PhotoCardComponent', () => {
 
   it('should display image', async () => {
     await render(PhotoCardComponent, {
+      declarations: [FavoriteModalComponent],
+      imports: [ReactiveFormsModule],
       componentProperties: { photo },
     });
 

@@ -1,1 +1,20 @@
-<p>favorites works!</p>
+<section *ngIf="favorites$ | async as favorites">
+  <div
+    *ngIf="favorites.length == 0; else list"
+    class="alert alert-info my-10 mx-5"
+  >
+    <strong>No favorites yet</strong>
+    <p>
+      <a routerLink="/photos">Search</a> for some images to create a favorite
+      list
+    </p>
+  </div>
+
+  <ng-template #list>
+    <ul>
+      <li *ngFor="let fav of favorites">
+        {{ fav | json }}
+      </li>
+    </ul>
+  </ng-template>
+</section>

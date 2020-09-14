@@ -1,0 +1,83 @@
+<div *ngIf="favorites$ | async as favorites" class="flex flex-col md:flex-row">
+  <div
+    *ngIf="favorites.length > 0"
+    class="mb-5 md:mb-0 md:pr-5 md:mr-5 md:border-r border-gray-700 border-opacity-25"
+  >
+    <ul class="group-list">
+      <li
+        *ngFor="let fav of favorites"
+        class="flex justify-between items-center py-2"
+      >
+        <p class="mr-5 text-xl">
+          {{ fav.name }}
+        </p>
+        <button
+          class="btn text-red-600 text-3xl"
+          *ngIf="contains(fav); else add"
+          (click)="onRemove(fav)"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-label="Remove from group"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M20 12H4"
+            />
+          </svg>
+        </button>
+        <ng-template #add>
+          <button class="btn text-green-600 text-3xl" (click)="onAdd(fav)">
+            <svg
+              class="icon"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-label="Add to group"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              />
+            </svg>
+          </button>
+        </ng-template>
+      </li>
+    </ul>
+  </div>
+
+  <section>
+    <h2>Create</h2>
+    <form [formGroup]="createForm" (ngSubmit)="onCreate()" ngNativeValidate>
+      <section class="form-group">
+        <label for="name" class="form-label">Name</label>
+        <input
+          class="form-input"
+          type="text"
+          id="name"
+          formControlName="name"
+          required
+        />
+      </section>
+      <section class="form-group">
+        <label for="description" class="form-label">Description</label>
+        <input
+          class="form-input"
+          type="text"
+          id="description"
+          formControlName="description"
+        />
+      </section>
+      <button class="btn btn-primary w-full" type="submit">Create</button>
+    </form>
+  </section>
+</div>

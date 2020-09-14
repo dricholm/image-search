@@ -1,6 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 import { FavoritesEntity } from './favorites.models';
 
+export const load = createAction('[Favorites] Load Favorites');
+
 export const setFavorites = createAction(
   '[Favorites] Set Favorites',
   props<{ favorites: FavoritesEntity[] }>()

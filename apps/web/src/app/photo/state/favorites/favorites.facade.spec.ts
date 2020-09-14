@@ -16,6 +16,7 @@ interface TestSchema {
 
 const mockPhotoService: Partial<PhotoService> = {
   addFavoriteList: jest.fn(),
+  loadFavorites: () => [],
 };
 
 describe('FavoritesFacade', () => {

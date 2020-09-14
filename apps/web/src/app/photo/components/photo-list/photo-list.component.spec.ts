@@ -1,5 +1,7 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { Photo } from '@image-search/api-interfaces';
 import { render, screen } from '@testing-library/angular';
+import { FavoriteModalComponent } from '../favorite-modal/favorite-modal.component';
 import { PhotoCardComponent } from '../photo-card/photo-card.component';
 import { PhotoListComponent } from './photo-list.component';
 
@@ -16,7 +18,8 @@ describe('PhotoListComponent', () => {
 
   it('should display search and favorites', async () => {
     await render(PhotoListComponent, {
-      declarations: [PhotoCardComponent],
+      declarations: [PhotoCardComponent, FavoriteModalComponent],
+      imports: [ReactiveFormsModule],
       componentProperties: { photos: [photo] },
     });
 

@@ -29,7 +29,7 @@
             />
           </svg>
         </a>
-        <button class="btn text-2xl text-gray-900">
+        <button class="btn text-2xl text-gray-900" (click)="openModal()">
           <svg
             class="icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -51,3 +51,38 @@
     <figcaption>{{ photo.description }}</figcaption>
   </section>
 </figure>
+
+<div
+  *ngIf="modalOpen"
+  class="fixed w-full h-full top-0 left-0 flex items-center justify-center z-30"
+>
+  <div
+    class="absolute w-full h-full bg-blue-800 opacity-50"
+    (click)="closeModal()"
+  ></div>
+  <div
+    class="bg-gray-200 rounded p-5 z-40 shadow-lg max-h-screen overflow-y-auto"
+  >
+    <header class="flex justify-between items-baseline">
+      <h1 class="mb-0 mr-5">Favorites</h1>
+      <button class="btn self-end" (click)="closeModal()">
+        <svg
+          class="icon text-3xl"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-label="Close modal"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </header>
+    <image-search-favorite-modal [id]="photo.id"></image-search-favorite-modal>
+  </div>
+</div>

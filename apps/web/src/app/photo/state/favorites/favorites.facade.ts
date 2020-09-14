@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Action, select, Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import * as FavoritesActions from './favorites.actions';
 import * as fromFavorites from './favorites.reducer';
 import * as FavoritesSelectors from './favorites.selectors';
@@ -9,10 +9,6 @@ export class FavoritesFacade {
   favorites$ = this.store.pipe(select(FavoritesSelectors.getAllFavorites));
 
   constructor(private store: Store<fromFavorites.FavoritesPartialState>) {}
-
-  dispatch(action: Action) {
-    this.store.dispatch(action);
-  }
 
   createFavoriteList(name: string, description: string, photoId: string) {
     this.store.dispatch(
