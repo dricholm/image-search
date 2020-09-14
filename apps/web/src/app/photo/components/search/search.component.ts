@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { debounceTime, distinct, filter, withLatestFrom } from 'rxjs/operators';
 import { PhotosFacade } from '../../state/photo/photos.facade';
 
 @Component({
@@ -15,15 +16,28 @@ export class SearchComponent implements OnInit {
       Validators.minLength(2),
     ]),
   });
+  lastSearch: string;
 
   ngOnInit(): void {
     this.photosFacade.clear();
+    this.form
+      .get('keyword')
+      .valueChanges.pipe(
+        debounceTime(1500),
+        distinct(),
+        withLatestFrom(this.photosFacade.loading$),
+        filter(([value, loading]) => !loading && value != this.lastSearch)
+      )
+      .subscribe((_) => {
+        this.onSubmit();
+      });
   }
 
   onSubmit() {
     if (this.form.invalid) {
       return;
     }
-    this.photosFacade.search(this.form.get('keyword').value);
+    this.lastSearch = this.form.get('keyword').value;
+    this.photosFacade.search(this.lastSearch);
   }
 }
