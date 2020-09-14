@@ -21,10 +21,8 @@ export class FavoritesEffects implements OnInitEffects {
           FavoritesActions.setFavorites({
             favorites: this.service.loadFavorites(),
           }),
-        onError: (action, error) => {
-          console.error('Error', error);
-          return FavoritesActions.setFavorites({ favorites: [] });
-        },
+        onError: (action, error) =>
+          FavoritesActions.setFavorites({ favorites: [] }),
       })
     )
   );
@@ -37,13 +35,11 @@ export class FavoritesEffects implements OnInitEffects {
           run: (action) => {
             this.service.addFavorite(action.favoriteId, action.photoId);
           },
-          undoAction: (action, error) => {
-            console.error('Error', error);
-            return FavoritesActions.removeFavorite({
+          undoAction: (action, error) =>
+            FavoritesActions.removeFavorite({
               favoriteId: action.favoriteId,
               photoId: action.photoId,
-            });
-          },
+            }),
         })
       ),
     { dispatch: false }
@@ -57,13 +53,11 @@ export class FavoritesEffects implements OnInitEffects {
           run: (action) => {
             this.service.removeFavorite(action.favoriteId, action.photoId);
           },
-          undoAction: (action, error) => {
-            console.error('Error', error);
-            return FavoritesActions.addFavorite({
+          undoAction: (action, error) =>
+            FavoritesActions.addFavorite({
               favoriteId: action.favoriteId,
               photoId: action.photoId,
-            });
-          },
+            }),
         })
       ),
     { dispatch: false }

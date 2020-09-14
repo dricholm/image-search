@@ -7,9 +7,11 @@ import { Observable } from 'rxjs';
 import { PhotoService } from '../../services/photo.service';
 import * as FavoritesActions from './favorites.actions';
 import { FavoritesEffects } from './favorites.effects';
+import { createFavoritesEntity } from './favorites.models';
 
 const mockPhotoService: Partial<PhotoService> = {
   addFavoriteList: jest.fn(),
+  loadFavorites: jest.fn(),
 };
 
 describe('FavoritesEffects', () => {
@@ -53,6 +55,24 @@ describe('FavoritesEffects', () => {
       });
 
       expect(effects.createFavoriteList$).toBeObservable(expected);
+    });
+  });
+
+  describe('load$', () => {
+    it('should work', () => {
+      const list = createFavoritesEntity('aaa');
+      jest.spyOn(service, 'loadFavorites').mockReturnValueOnce([list]);
+      actions = hot('-a-|', {
+        a: FavoritesActions.load(),
+      });
+
+      const expected = hot('-a-|', {
+        a: FavoritesActions.setFavorites({
+          favorites: [list],
+        }),
+      });
+
+      expect(effects.load$).toBeObservable(expected);
     });
   });
 });

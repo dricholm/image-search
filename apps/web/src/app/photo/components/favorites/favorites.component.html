@@ -1,6 +1,11 @@
-<section *ngIf="favorites$ | async as favorites">
+<ng-container
+  *ngIf="{
+    favorites: favorites$ | async,
+    selected: favoriteId$ | async
+  } as data"
+>
   <div
-    *ngIf="favorites.length == 0; else list"
+    *ngIf="data.favorites.length == 0; else list"
     class="alert alert-info my-10 mx-5"
   >
     <strong>No favorites yet</strong>
@@ -13,12 +18,19 @@
   <ng-template #list>
     <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
       <div
-        *ngFor="let fav of favorites"
-        class="bg-white border-l-4 border-blue-600 m-5 p-5"
+        *ngFor="let fav of data.favorites"
+        class="bg-white border-l-8 m-5 p-5 shadow-lg"
+        [class]="{
+          'border-green-600': fav.id == data.selected,
+          'border-blue-600': fav.id != data.selected
+        }"
       >
         <div class="flex items-center justify-between">
           <h1 class="flex-1 pr-5">
-            <a class="block no-underline" [routerLink]="fav.id">
+            <a
+              class="block no-underline"
+              [routerLink]="['/photos/favorites/', fav.id]"
+            >
               {{ fav.name }}
             </a>
           </h1>
@@ -30,7 +42,25 @@
         <p *ngIf="fav.description">{{ fav.description }}</p>
       </div>
     </section>
-  </ng-template>
-</section>
 
-<router-outlet></router-outlet>
+    <ng-template [ngIf]="data.selected">
+      <ng-container
+        *ngIf="
+          getSelected(data.favorites, data.selected) as selected;
+          else notFound
+        "
+      >
+        <image-search-favorite-group
+          [list]="selected"
+        ></image-search-favorite-group>
+      </ng-container>
+
+      <ng-template #notFound>
+        <div class="alert alert-danger m-5">
+          <strong>Not found</strong>
+          <p>This favorite list was not found</p>
+        </div>
+      </ng-template>
+    </ng-template>
+  </ng-template>
+</ng-container>

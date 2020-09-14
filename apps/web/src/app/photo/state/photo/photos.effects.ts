@@ -17,12 +17,10 @@ export class PhotosEffects {
           this.service
             .search(action.keyword)
             .pipe(map((photos) => PhotosActions.loadPhotosSuccess({ photos }))),
-        onError: (action, error) => {
-          console.error('Error', error);
-          return PhotosActions.loadPhotosFailure({
+        onError: (action, error) =>
+          PhotosActions.loadPhotosFailure({
             error: error.error || { error: -1, message: 'Unexpected error' },
-          });
-        },
+          }),
       })
     )
   );
@@ -35,12 +33,10 @@ export class PhotosEffects {
           this.service
             .loadFavoritePhotos(action.id)
             .pipe(map((photos) => PhotosActions.loadPhotosSuccess({ photos }))),
-        onError: (action, error) => {
-          console.error('Error', error);
-          return PhotosActions.loadPhotosFailure({
+        onError: (action, error) =>
+          PhotosActions.loadPhotosFailure({
             error: error.error || { error: -1, message: 'Unexpected error' },
-          });
-        },
+          }),
       })
     )
   );
