@@ -1,10 +1,18 @@
-<div class="mx-auto p-5 md:w-1/2 xl:w-1/3">
-  <image-search-favorite-group-form
-    *ngIf="favorite$ | async as favorite"
-    [name]="favorite.name"
-    [description]="favorite.description"
-    (submit)="onSave($event)"
-  ></image-search-favorite-group-form>
-</div>
+<ng-container *ngIf="favorite$ | async as favorite; else notFound">
+  <div class="mx-auto p-5 md:w-1/2 xl:w-1/3">
+    <image-search-favorite-group-form
+      [name]="favorite.name"
+      [description]="favorite.description"
+      (formSubmit)="onSave($event)"
+    ></image-search-favorite-group-form>
+  </div>
 
-<image-search-photo-list></image-search-photo-list>
+  <image-search-photo-list></image-search-photo-list>
+</ng-container>
+
+<ng-template #notFound>
+  <div class="alert alert-danger m-5">
+    <strong>Not found</strong>
+    <p>This favorite list was not found</p>
+  </div>
+</ng-template>

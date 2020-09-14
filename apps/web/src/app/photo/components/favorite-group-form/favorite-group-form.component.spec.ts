@@ -5,7 +5,7 @@ import { FavoriteGroupFormComponent } from './favorite-group-form.component';
 
 describe('FavoriteGroupFormComponent', () => {
   it('should display and submit edited form', async () => {
-    const submit = jest.fn();
+    const formSubmit = jest.fn();
 
     const name = 'custom-name';
     const description = 'custom-desc';
@@ -16,8 +16,8 @@ describe('FavoriteGroupFormComponent', () => {
       componentProperties: {
         name,
         description,
-        submit: {
-          emit: submit,
+        formSubmit: {
+          emit: formSubmit,
         } as any,
       },
     });
@@ -35,7 +35,7 @@ describe('FavoriteGroupFormComponent', () => {
     fireEvent.blur(descInput);
 
     userEvent.click(screen.getByText(/save/i));
-    expect(submit).toHaveBeenCalledWith({
+    expect(formSubmit).toHaveBeenCalledWith({
       name: newName,
       description: newDescription,
     });

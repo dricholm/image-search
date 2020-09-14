@@ -46,6 +46,12 @@ const favoritesReducer = createReducer(
   ),
   on(FavoritesActions.saveFavoriteList, (state, { favorite }) =>
     favoritesAdapter.addOne(favorite, { ...state })
+  ),
+  on(FavoritesActions.editFavoriteList, (state, { id, name, description }) =>
+    favoritesAdapter.updateOne(
+      { id, changes: { name, description } },
+      { ...state }
+    )
   )
 );
 

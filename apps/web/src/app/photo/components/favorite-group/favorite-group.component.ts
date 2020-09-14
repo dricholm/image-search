@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { filter, map, tap, withLatestFrom } from 'rxjs/operators';
 import { FavoritesFacade } from '../../state/favorites/favorites.facade';
 import { FavoritesEntity } from '../../state/favorites/favorites.models';
@@ -13,10 +13,9 @@ import { FavoriteGroupFormValues } from '../favorite-group-form/favorite-group-f
   styleUrls: ['./favorite-group.component.scss'],
 })
 export class FavoriteGroupComponent implements OnInit {
-  @Input() favorite: FavoritesEntity;
-
   favorite$: Observable<FavoritesEntity>;
   photos$ = this.photosFacade.photos$;
+  currentId: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,16 +24,25 @@ export class FavoriteGroupComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.favorite$ = this.route.paramMap.pipe(
-      map((params) => params.get('id')),
-      filter((id) => id != null),
-      tap((id) => this.photosFacade.loadFavorite(id)),
-      withLatestFrom(this.favoritesFacade.favorites$),
+    this.favorite$ = combineLatest([
+      this.route.paramMap.pipe(
+        map((params) => params.get('id')),
+        filter((id) => id != null)
+      ),
+      this.favoritesFacade.favorites$,
+    ]).pipe(
+      tap(([id]) => {
+        this.currentId = id;
+        this.photosFacade.loadFavorite(id);
+      }),
       map(([id, favorites]) => favorites.find((favorite) => favorite.id == id))
     );
   }
 
   onSave({ name, description }: FavoriteGroupFormValues) {
-    // TODO: Update group details
+    if (this.currentId == null) {
+      return;
+    }
+    this.favoritesFacade.editFavoriteList(this.currentId, name, description);
   }
 }

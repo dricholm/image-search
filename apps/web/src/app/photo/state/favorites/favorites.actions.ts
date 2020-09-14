@@ -27,3 +27,8 @@ export const saveFavoriteList = createAction(
   '[Favorites] Save Favorite List',
   props<{ favorite: FavoritesEntity }>()
 );
+
+export const editFavoriteList = createAction(
+  '[Favorites] Edit Favorite List',
+  props<{ id: string; name: string; description: string }>()
+);

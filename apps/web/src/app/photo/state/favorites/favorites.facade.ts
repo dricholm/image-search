@@ -25,4 +25,10 @@ export class FavoritesFacade {
       FavoritesActions.removeFavorite({ favoriteId, photoId })
     );
   }
+
+  editFavoriteList(id: string, name: string, description: string) {
+    this.store.dispatch(
+      FavoritesActions.editFavoriteList({ id, name, description })
+    );
+  }
 }

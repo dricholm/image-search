@@ -21,7 +21,10 @@ describe('PhotoListComponent', () => {
     await render(PhotoListComponent, {
       declarations: [PhotoCardComponent],
       providers: [
-        { provide: PhotosFacade, useValue: { photos$: of([photo]) } },
+        {
+          provide: PhotosFacade,
+          useValue: { initialized$: of(true), photos$: of([photo]) },
+        },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });

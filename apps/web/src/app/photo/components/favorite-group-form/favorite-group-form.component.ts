@@ -18,7 +18,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class FavoriteGroupFormComponent implements OnChanges {
   @Input() name = '';
   @Input() description = '';
-  @Output() submit = new EventEmitter<FavoriteGroupFormValues>();
+  @Output() formSubmit = new EventEmitter<FavoriteGroupFormValues>();
 
   form = new FormGroup({
     name: new FormControl(this.name, [Validators.required]),
@@ -26,8 +26,14 @@ export class FavoriteGroupFormComponent implements OnChanges {
   });
 
   ngOnChanges(changes: SimpleChanges) {
-    this.form.get('name').setValue(changes['name'].currentValue);
-    this.form.get('description').setValue(changes['description'].currentValue);
+    if (changes['name']?.currentValue) {
+      this.form.get('name').setValue(changes['name'].currentValue);
+    }
+    if (changes['description']?.currentValue) {
+      this.form
+        .get('description')
+        .setValue(changes['description'].currentValue);
+    }
   }
 
   get shouldUpdate(): boolean {
@@ -38,7 +44,7 @@ export class FavoriteGroupFormComponent implements OnChanges {
     if (this.form.invalid) {
       return;
     }
-    this.submit.emit(this.form.value);
+    this.formSubmit.emit(this.form.value);
   }
 }
 

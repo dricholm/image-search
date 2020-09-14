@@ -92,4 +92,26 @@ export class PhotoService {
 
     this.saveFavoritesToStorage(updated);
   }
+
+  editFavoriteList(
+    id: string,
+    name: string,
+    description: string
+  ): FavoritesEntity {
+    const favorites = this.loadFavorites();
+
+    let updatedEntry: FavoritesEntity;
+
+    const updated = (favorites as FavoritesEntity[]).map((favorite) => {
+      if (favorite.id != id) {
+        return favorite;
+      }
+      updatedEntry = { ...favorite, name, description };
+      return updatedEntry;
+    });
+
+    this.saveFavoritesToStorage(updated);
+
+    return updatedEntry;
+  }
 }
