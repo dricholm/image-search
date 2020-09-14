@@ -7,12 +7,6 @@ import * as FavoritesActions from './favorites.actions';
 
 @Injectable()
 export class FavoritesEffects implements OnInitEffects {
-  constructor(private actions$: Actions, private service: PhotoService) {}
-
-  ngrxOnInitEffects() {
-    return FavoritesActions.load();
-  }
-
   load$ = createEffect(() =>
     this.actions$.pipe(
       ofType(FavoritesActions.load),
@@ -88,4 +82,10 @@ export class FavoritesEffects implements OnInitEffects {
       ),
     { dispatch: false }
   );
+
+  constructor(private actions$: Actions, private service: PhotoService) {}
+
+  ngrxOnInitEffects() {
+    return FavoritesActions.load();
+  }
 }

@@ -26,7 +26,7 @@ export class SearchComponent implements OnInit {
         debounceTime(1500),
         distinct(),
         withLatestFrom(this.photosFacade.loading$),
-        filter(([value, loading]) => !loading && value != this.lastSearch)
+        filter(([value, loading]) => !loading && value !== this.lastSearch)
       )
       .subscribe((_) => {
         this.onSubmit();

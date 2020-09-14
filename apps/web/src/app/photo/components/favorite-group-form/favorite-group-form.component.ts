@@ -37,7 +37,7 @@ export class FavoriteGroupFormComponent implements OnChanges {
   }
 
   get shouldUpdate(): boolean {
-    return this.name != '';
+    return this.name !== '';
   }
 
   onSubmit() {

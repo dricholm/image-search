@@ -29,7 +29,7 @@ export class FavoriteGroupComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const previous: FavoritesEntity = changes['list'].previousValue;
     const current: FavoritesEntity = changes['list'].currentValue;
-    if (previous?.id != current?.id) {
+    if (previous?.id !== current?.id) {
       this.photosFacade.loadFavorite(this.list.id);
     }
   }

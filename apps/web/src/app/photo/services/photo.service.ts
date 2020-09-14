@@ -20,12 +20,14 @@ export class PhotoService {
   }
 
   loadFavoritePhotos(groupId: string): Observable<Photo[]> {
-    const favorites = this.loadFavorites().find((group) => group.id == groupId);
+    const favorites = this.loadFavorites().find(
+      (group) => group.id === groupId
+    );
     if (!favorites) {
       return throwError({ status: 404 });
     }
     const ids = favorites.photoIds;
-    if (ids.length == 0) {
+    if (ids.length === 0) {
       return of([]);
     }
 
@@ -70,7 +72,7 @@ export class PhotoService {
     const favorites = this.loadFavorites();
 
     const updated = (favorites as FavoritesEntity[]).map((favorite) =>
-      favorite.id == favoriteId
+      favorite.id === favoriteId
         ? { ...favorite, photoIds: [...favorite.photoIds, photoId] }
         : favorite
     );
@@ -82,10 +84,10 @@ export class PhotoService {
     const favorites = this.loadFavorites();
 
     const updated = (favorites as FavoritesEntity[]).map((favorite) =>
-      favorite.id == favoriteId
+      favorite.id === favoriteId
         ? {
             ...favorite,
-            photoIds: favorite.photoIds.filter((id) => id != photoId),
+            photoIds: favorite.photoIds.filter((id) => id !== photoId),
           }
         : favorite
     );
@@ -103,7 +105,7 @@ export class PhotoService {
     let updatedEntry: FavoritesEntity;
 
     const updated = (favorites as FavoritesEntity[]).map((favorite) => {
-      if (favorite.id != id) {
+      if (favorite.id !== id) {
         return favorite;
       }
       updatedEntry = { ...favorite, name, description };

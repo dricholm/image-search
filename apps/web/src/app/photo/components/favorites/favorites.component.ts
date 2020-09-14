@@ -31,6 +31,6 @@ export class FavoritesComponent implements OnInit {
   }
 
   getSelected(favorites: FavoritesEntity[], id: string): FavoritesEntity {
-    return favorites.find((favorite) => favorite.id == id);
+    return favorites.find((favorite) => favorite.id === id);
   }
 }

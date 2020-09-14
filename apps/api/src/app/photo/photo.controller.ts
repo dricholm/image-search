@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   InternalServerErrorException,
+  Logger,
   ParseArrayPipe,
   Query,
   UnauthorizedException,
@@ -29,7 +30,7 @@ export class PhotoController {
     ).pipe(
       map((responses) => {
         const photos = responses.filter((response) => response.status == null);
-        if (photos.length == 0) {
+        if (photos.length === 0) {
           switch (responses[0].status) {
             case 401:
               throw new UnauthorizedException();
@@ -56,6 +57,7 @@ export class PhotoController {
             throw new UnprocessableEntityException();
 
           default:
+            Logger.log('PhotoController#search: Unexpected error', e);
             throw new InternalServerErrorException();
         }
       })

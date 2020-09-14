@@ -26,7 +26,7 @@ const favoritesReducer = createReducer(
   on(FavoritesActions.addFavorite, (state, { favoriteId, photoId }) =>
     favoritesAdapter.map(
       (favorite) =>
-        favorite.id == favoriteId
+        favorite.id === favoriteId
           ? { ...favorite, photoIds: [...favorite.photoIds, photoId] }
           : { ...favorite },
       { ...state }
@@ -35,10 +35,10 @@ const favoritesReducer = createReducer(
   on(FavoritesActions.removeFavorite, (state, { favoriteId, photoId }) =>
     favoritesAdapter.map(
       (favorite) =>
-        favorite.id == favoriteId
+        favorite.id === favoriteId
           ? {
               ...favorite,
-              photoIds: favorite.photoIds.filter((id) => id != photoId),
+              photoIds: favorite.photoIds.filter((id) => id !== photoId),
             }
           : { ...favorite },
       { ...state }
