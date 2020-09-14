@@ -56,6 +56,7 @@ The favorite photos are stored in the browser's Local Storage. In a normal web a
 - Lazy loading: The webapp uses lazy loading for features, however there is only one feature module for now.
 - Pagination: Search currently only returns the default 10 images from Unsplash. Pagination or infinite scrolling could be implemented to search for more.
 - Browser compatibility: configurable in `apps/web/.browserslistrc`. Can be checked with `npx browserslist`.
+- SEO: Set page `<title>`, `<description>` etc. depending on active route
 
 ## Scripts
 
