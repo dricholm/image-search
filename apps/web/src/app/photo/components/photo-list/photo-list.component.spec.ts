@@ -1,7 +1,8 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Photo } from '@image-search/api-interfaces';
 import { render, screen } from '@testing-library/angular';
-import { FavoriteModalComponent } from '../favorite-modal/favorite-modal.component';
+import { of } from 'rxjs';
+import { PhotosFacade } from '../../state/photo/photos.facade';
 import { PhotoCardComponent } from '../photo-card/photo-card.component';
 import { PhotoListComponent } from './photo-list.component';
 
@@ -18,9 +19,11 @@ describe('PhotoListComponent', () => {
 
   it('should display search and favorites', async () => {
     await render(PhotoListComponent, {
-      declarations: [PhotoCardComponent, FavoriteModalComponent],
-      imports: [ReactiveFormsModule],
-      componentProperties: { photos: [photo] },
+      declarations: [PhotoCardComponent],
+      providers: [
+        { provide: PhotosFacade, useValue: { photos$: of([photo]) } },
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
 
     expect(screen.getByText(photo.description));

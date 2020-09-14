@@ -43,7 +43,21 @@ const photosReducer = createReducer(
     initialized: true,
     loading: false,
     error,
-  }))
+  })),
+  on(PhotosActions.loadFavorite, (state) => ({
+    ...state,
+    initialized: true,
+    loading: true,
+    error: null,
+  })),
+  on(PhotosActions.clearPhotos, (state) =>
+    photosAdapter.removeAll({
+      ...state,
+      initialized: false,
+      loading: false,
+      error: null,
+    })
+  )
 );
 
 export function reducer(state: State | undefined, action: Action) {

@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Photo } from '@image-search/api-interfaces';
+import { Component } from '@angular/core';
+import { PhotosFacade } from '../../state/photo/photos.facade';
 
 @Component({
   selector: 'image-search-photo-list',
@@ -7,5 +7,10 @@ import { Photo } from '@image-search/api-interfaces';
   templateUrl: './photo-list.component.html',
 })
 export class PhotoListComponent {
-  @Input() photos: Photo[];
+  constructor(private photosFacade: PhotosFacade) {}
+
+  initialized$ = this.photosFacade.initialized$;
+  error$ = this.photosFacade.error$;
+  loading$ = this.photosFacade.loading$;
+  photos$ = this.photosFacade.photos$;
 }

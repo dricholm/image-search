@@ -20,21 +20,4 @@
   </div>
 </form>
 
-<section *ngIf="initialized$ | async" class="center">
-  <div *ngIf="error$ | async as error" class="alert alert-danger m-5">
-    <strong>
-      Error
-    </strong>
-    {{ error.message }}
-  </div>
-  <div
-    *ngIf="loading$ | async; else loaded"
-    class="loader text-3xl"
-    aria-label="Loading"
-  ></div>
-  <ng-template #loaded>
-    <image-search-photo-list
-      [photos]="photos$ | async"
-    ></image-search-photo-list>
-  </ng-template>
-</section>
+<image-search-photo-list></image-search-photo-list>

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FavoritesFacade } from '../../state/favorites/favorites.facade';
 import { FavoritesEntity } from '../../state/favorites/favorites.models';
+import { FavoriteGroupFormValues } from '../favorite-group-form/favorite-group-form.component';
 
 @Component({
   selector: 'image-search-favorite-modal',
@@ -15,11 +15,6 @@ export class FavoriteModalComponent {
 
   favorites$ = this.favoritesFacade.favorites$;
 
-  createForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    description: new FormControl(''),
-  });
-
   onRemove(fav: FavoritesEntity) {
     this.favoritesFacade.removeFavorite(fav.id, this.id);
   }
@@ -28,16 +23,8 @@ export class FavoriteModalComponent {
     this.favoritesFacade.addFavorite(fav.id, this.id);
   }
 
-  onCreate() {
-    if (this.createForm.invalid) {
-      return;
-    }
-    // TODO: Validate name, call facade
-    this.favoritesFacade.createFavoriteList(
-      this.createForm.get('name').value,
-      this.createForm.get('description').value,
-      this.id
-    );
+  onCreate({ name, description }: FavoriteGroupFormValues) {
+    this.favoritesFacade.createFavoriteList(name, description, this.id);
   }
 
   contains(group: FavoritesEntity): boolean {

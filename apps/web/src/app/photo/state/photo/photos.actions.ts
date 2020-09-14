@@ -6,6 +6,13 @@ export const searchPhotos = createAction(
   props<{ keyword: string }>()
 );
 
+export const loadFavorite = createAction(
+  '[Photos] Load Favorite Photos',
+  props<{ id: string }>()
+);
+
+export const clearPhotos = createAction('[Photos] Clear Photos');
+
 export const loadPhotosSuccess = createAction(
   '[Photos] Load Photos Success',
   props<{ photos: Photo[] }>()

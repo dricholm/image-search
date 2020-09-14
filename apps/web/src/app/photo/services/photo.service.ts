@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Photo, Photos } from '@image-search/api-interfaces';
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { v4 as uuidv4 } from 'uuid';
 import { environment } from '../../../environments/environment';
@@ -16,6 +16,21 @@ export class PhotoService {
   search(keyword: string): Observable<Photo[]> {
     return this.http
       .get<Photos>(`${environment.baseUrl}/photos/search?keyword=${keyword}`)
+      .pipe(map((response) => response.photos));
+  }
+
+  loadFavoritePhotos(groupId: string): Observable<Photo[]> {
+    const favorites = this.loadFavorites().find((group) => group.id == groupId);
+    if (!favorites) {
+      return throwError({ status: 404 });
+    }
+    const ids = favorites.photoIds;
+    if (ids.length == 0) {
+      return of([]);
+    }
+
+    return this.http
+      .get<Photos>(`${environment.baseUrl}/photos?ids=${ids.join(',')}`)
       .pipe(map((response) => response.photos));
   }
 

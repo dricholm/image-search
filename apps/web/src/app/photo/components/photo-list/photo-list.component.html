@@ -1,8 +1,29 @@
-<section
-  class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-y-5 md:gap-x-5 my-3"
+<div *ngIf="error$ | async as error" class="alert alert-danger m-5">
+  <strong>
+    Error
+  </strong>
+  {{ error.message }}
+</div>
+<div
+  *ngIf="loading$ | async; else loaded"
+  class="flex items-center justify-center"
 >
-  <image-search-photo-card
-    *ngFor="let photo of photos"
-    [photo]="photo"
-  ></image-search-photo-card>
-</section>
+  <div class="loader text-3xl" aria-label="Loading"></div>
+</div>
+<ng-template #loaded>
+  <section
+    *ngIf="photos$ | async as photos"
+    class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-y-5 md:gap-x-5 my-3"
+  >
+    <div *ngIf="photos.length == 0; else cards" class="alert alert-info">
+      <strong>No photos</strong>
+      <p>No photos were found</p>
+    </div>
+    <ng-template #cards>
+      <image-search-photo-card
+        *ngFor="let photo of photos"
+        [photo]="photo"
+      ></image-search-photo-card>
+    </ng-template>
+  </section>
+</ng-template>

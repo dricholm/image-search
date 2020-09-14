@@ -1,4 +1,4 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Photo } from '@image-search/api-interfaces';
 import { render, screen } from '@testing-library/angular';
 import { FavoriteModalComponent } from '../favorite-modal/favorite-modal.component';
@@ -18,8 +18,8 @@ describe('PhotoCardComponent', () => {
   it('should display image', async () => {
     await render(PhotoCardComponent, {
       declarations: [FavoriteModalComponent],
-      imports: [ReactiveFormsModule],
       componentProperties: { photo },
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
 
     expect(screen.getByAltText(photo.description)).toHaveAttribute(

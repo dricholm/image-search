@@ -26,4 +26,22 @@ export class PhotosEffects {
       })
     )
   );
+
+  loadFavorite$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PhotosActions.loadFavorite),
+      fetch({
+        run: (action) =>
+          this.service
+            .loadFavoritePhotos(action.id)
+            .pipe(map((photos) => PhotosActions.loadPhotosSuccess({ photos }))),
+        onError: (action, error) => {
+          console.error('Error', error);
+          return PhotosActions.loadPhotosFailure({
+            error: error.error || { error: -1, message: 'Unexpected error' },
+          });
+        },
+      })
+    )
+  );
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PhotosFacade } from '../../state/photo/photos.facade';
 
@@ -6,7 +6,7 @@ import { PhotosFacade } from '../../state/photo/photos.facade';
   selector: 'image-search-search',
   templateUrl: './search.component.html',
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit {
   constructor(private photosFacade: PhotosFacade) {}
 
   form = new FormGroup({
@@ -16,10 +16,9 @@ export class SearchComponent {
     ]),
   });
 
-  initialized$ = this.photosFacade.initialized$;
-  error$ = this.photosFacade.error$;
-  loading$ = this.photosFacade.loading$;
-  photos$ = this.photosFacade.photos$;
+  ngOnInit(): void {
+    this.photosFacade.clear();
+  }
 
   onSubmit() {
     if (this.form.invalid) {

@@ -15,6 +15,8 @@ import { PhotosEffects } from './state/photo/photos.effects';
 import { PhotosFacade } from './state/photo/photos.facade';
 import * as fromPhotos from './state/photo/photos.reducer';
 import { FavoriteModalComponent } from './components/favorite-modal/favorite-modal.component';
+import { FavoriteGroupComponent } from './components/favorite-group/favorite-group.component';
+import { FavoriteGroupFormComponent } from './components/favorite-group-form/favorite-group-form.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { FavoriteModalComponent } from './components/favorite-modal/favorite-mod
     PhotoListComponent,
     FavoritesComponent,
     FavoriteModalComponent,
+    FavoriteGroupComponent,
+    FavoriteGroupFormComponent,
   ],
   imports: [
     CommonModule,

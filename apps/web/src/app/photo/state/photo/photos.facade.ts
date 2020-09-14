@@ -16,4 +16,12 @@ export class PhotosFacade {
   search(keyword: string) {
     this.store.dispatch(PhotosActions.searchPhotos({ keyword }));
   }
+
+  loadFavorite(id: string) {
+    this.store.dispatch(PhotosActions.loadFavorite({ id }));
+  }
+
+  clear() {
+    this.store.dispatch(PhotosActions.clearPhotos());
+  }
 }

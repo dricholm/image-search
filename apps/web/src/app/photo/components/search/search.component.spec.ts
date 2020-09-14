@@ -1,32 +1,33 @@
-// TODO: Fix tests
-// Forms and Jest cause TypeError: Converting circular structure to JSON
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { fireEvent, render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
+import { of } from 'rxjs';
+import { PhotosFacade } from '../../state/photo/photos.facade';
+import { SearchComponent } from './search.component';
 
-// import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-// import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-// import { ReactiveFormsModule } from '@angular/forms';
-// import { SearchComponent } from './search.component';
+describe('SearchComponent', () => {
+  it('should submit keyword', async () => {
+    const submit = jest.fn();
+    const keyword = 'search-keyword';
 
-// describe('SearchComponent', () => {
-//   let component: SearchComponent;
-//   let fixture: ComponentFixture<SearchComponent>;
+    await render(SearchComponent, {
+      imports: [ReactiveFormsModule],
+      providers: [
+        {
+          provide: PhotosFacade,
+          useValue: { clear: jest.fn(), photos$: of([]), search: submit },
+        },
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    });
 
-//   beforeEach(
-//     waitForAsync(() => {
-//       TestBed.configureTestingModule({
-//         declarations: [SearchComponent],
-//         imports: [ReactiveFormsModule],
-//         schemas: [CUSTOM_ELEMENTS_SCHEMA],
-//       }).compileComponents();
-//     })
-//   );
+    const searchInput = screen.getByLabelText(/search/i);
 
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(SearchComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
+    userEvent.type(searchInput, keyword);
+    fireEvent.blur(searchInput);
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+    userEvent.click(screen.getByRole('button'));
+    expect(submit).toHaveBeenCalledWith(keyword);
+  });
+});
