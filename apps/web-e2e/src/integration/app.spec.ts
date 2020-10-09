@@ -1,13 +1,22 @@
-import { getGreeting } from '../support/app.po';
+import { getAlert, getForm } from '../support/app.po';
 
 describe('web', () => {
   beforeEach(() => cy.visit('/'));
 
-  it('should display welcome message', () => {
-    // Custom command example, see `../support/commands.ts` file
-    cy.login('my-email@something.com', 'myPassword');
+  it('should search for keyword and display empty search results', () => {
+    const keyword = 'Test';
+    cy.server();
+    cy.route({
+      method: 'GET',
+      response: { photos: [] },
+      status: 200,
+      url: `**/photos/search?keyword=${keyword}`,
+    }).as('search');
 
-    // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Welcome to web!');
+    getForm().find('[type="text"]').type(keyword);
+    getForm().submit();
+    cy.wait('@search');
+
+    getAlert().should('contain', 'No photos');
   });
 });

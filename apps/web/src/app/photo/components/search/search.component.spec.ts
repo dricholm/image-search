@@ -7,8 +7,8 @@ import { PhotosFacade } from '../../state/photo/photos.facade';
 import { SearchComponent } from './search.component';
 
 describe('SearchComponent', () => {
-  it('should submit keyword', async () => {
-    const submit = jest.fn();
+  it('should search keyword', async () => {
+    const search = jest.fn();
     const keyword = 'search-keyword';
 
     await render(SearchComponent, {
@@ -20,7 +20,7 @@ describe('SearchComponent', () => {
             clear: jest.fn(),
             loading$: of([false]),
             photos$: of([]),
-            search: submit,
+            search: search,
           },
         },
       ],
@@ -33,6 +33,6 @@ describe('SearchComponent', () => {
     fireEvent.blur(searchInput);
 
     userEvent.click(screen.getByRole('button'));
-    expect(submit).toHaveBeenCalledWith(keyword);
+    expect(search).toHaveBeenCalledWith(keyword);
   });
 });

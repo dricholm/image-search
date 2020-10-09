@@ -14,7 +14,11 @@
   </div>
   <ng-template #loaded>
     <ng-container *ngIf="photos$ | async as photos">
-      <div *ngIf="photos.length == 0; else cards" class="alert alert-info m-5">
+      <div
+        *ngIf="photos.length == 0; else cards"
+        class="alert alert-info m-5"
+        role="alert"
+      >
         <strong>No photos</strong>
         <p>No photos were found</p>
       </div>
