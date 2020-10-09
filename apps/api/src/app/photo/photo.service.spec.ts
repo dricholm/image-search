@@ -110,7 +110,7 @@ describe('PhotoService', () => {
           `https://api.unsplash.com/photos/${id}`,
           {
             headers: {
-              Authorization: `Client-ID ${process.env.UNSPLASH_API_KEY}`,
+              Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
             },
           }
         );
@@ -127,7 +127,7 @@ describe('PhotoService', () => {
       jest.spyOn(http, 'get').mockReturnValueOnce(
         of({
           config: {},
-          data: { photos: [examplePhoto] },
+          data: { results: [examplePhoto] },
           headers: {},
           status: 200,
           statusText: 'Success',
@@ -139,7 +139,7 @@ describe('PhotoService', () => {
           `https://api.unsplash.com/search/photos?query=${keyword}`,
           {
             headers: {
-              Authorization: `Client-ID ${process.env.UNSPLASH_API_KEY}`,
+              Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
             },
           }
         );

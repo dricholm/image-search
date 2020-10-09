@@ -28,7 +28,7 @@ npm t -- --code-coverage
 npm run nx -- test api
 
 # Generate code coverage for API
-npm run nx -- test api
+npm run nx -- test api --code-coverage
 ```
 
 ## Build

@@ -16,7 +16,12 @@ describe('SearchComponent', () => {
       providers: [
         {
           provide: PhotosFacade,
-          useValue: { clear: jest.fn(), photos$: of([]), search: submit },
+          useValue: {
+            clear: jest.fn(),
+            loading$: of([false]),
+            photos$: of([]),
+            search: submit,
+          },
         },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],

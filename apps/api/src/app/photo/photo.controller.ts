@@ -57,6 +57,7 @@ export class PhotoController {
             throw new UnprocessableEntityException();
 
           default:
+            // TODO: Use custom Logger to disable logs during tests
             Logger.log('PhotoController#search: Unexpected error', e);
             throw new InternalServerErrorException();
         }
