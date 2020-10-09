@@ -1,5 +1,8 @@
 # Image Search
 
+![Master](https://github.com/dricholm/image-search/workflows/Master/badge.svg)
+[![codecov](https://codecov.io/gh/dricholm/image-search/branch/master/graph/badge.svg)](https://codecov.io/gh/dricholm/image-search)
+
 ## Setup instructions for development
 
 To setup and start both the API and web part follow these instructions:
@@ -14,7 +17,7 @@ Both API and web are using hot reload for easier development.
 
 ## Test
 
-The code is mostly tested, however it is not complete due to time constraints. E2E tests have not been written yet.
+The code is mostly tested, however it is not complete due to time constraints.
 Code coverage can be generated to the coverage directory.
 
 ```sh
@@ -29,6 +32,9 @@ npm run nx -- test api
 
 # Generate code coverage for API
 npm run nx -- test api --code-coverage
+
+# Run e2e tests
+npm run e2e
 ```
 
 ## Build
@@ -48,7 +54,7 @@ npm run build -- api
 - `apps`: Contains the apps
 - `apps/api`: NestJs project containing API code
 - `apps/web`: Angular project containing frontend part
-- `apps/web-e2e`: Code for E2E testing, not used currently
+- `apps/web-e2e`: Code for E2E testing
 - `libs`: Contains the shared libraries between apps
 - `libs/api-interfaces`: Interfaces for API requests, responses
 
